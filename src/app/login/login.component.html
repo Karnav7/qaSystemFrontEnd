@@ -1,0 +1,49 @@
+<div class="loginbackground" fxLayoutAlign="space-around center">
+  
+  
+   
+      <div fxLayout="column" class="form-size">
+              <!-- <p>{{ loginForm.value | json }} {{ loginForm.status | json }}</p> -->
+        <mat-card style="opacity:0.8;"> 
+          <mat-card-title class="text-primary"><h3 style="text-align:center">Login</h3></mat-card-title>
+          <mat-card-content>
+            <form novalidate [formGroup]="loginForm" (ngSubmit)="onSubmit()" style="align-content:center">
+              <p>
+                <mat-input-container class="full-width"
+                  dividerColor="{{(formErrors.username) ? 'warn' : 'primary'}}">
+                  <input matInput type = "text" formControlName = "username" placeholder="Username" required>
+                  <mat-hint>
+                    <span [hidden]="!(formErrors.username)">{{formErrors.username}}</span>
+                  </mat-hint>
+                </mat-input-container>
+              </p>
+        
+              <p>
+                <mat-input-container class="full-width"
+                  dividerColor="{{(formErrors.password) ? 'warn' : 'primary'}}">
+                  <input matInput type = "password" formControlName = "password" placeholder="Password" required>
+                  <mat-hint>
+                    <span [hidden]="!(formErrors.email)">{{formErrors.password}}</span>
+                  </mat-hint>
+                </mat-input-container>
+              </p>
+              <span class="button">
+                <button mat-raised-button type="submit" class="background-primary text-floral-white "
+                  [disabled]="loginForm.invalid">Login</button>
+              </span>
+            </form>
+  
+            <!-- <br><br><br><br>
+  
+            <p>
+              Need an account?
+            </p>
+  
+            <a mat-raised-button type="button" routerLink="/signup" class="background-primary text-floral-white" >Signup</a> -->
+            
+          </mat-card-content>
+        </mat-card>
+      </div>
+    
+  
+  </div>

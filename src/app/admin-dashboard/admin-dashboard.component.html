@@ -1,0 +1,210 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <a type="button" mat-mini-fab (click)="sidenav.open()">
+      <span class="fa fa-bars fa-lg"></span>
+  </a>
+<span>&nbsp;QA System</span>
+<span class="flex-spacer"></span>
+<a mat-button routerLink="/login"><span class="fa fa-sign-out fa-lg"></span> Logout</a> 
+</mat-toolbar>
+
+<mat-sidenav-container class="example-container" style="top: 63px !important;" fullscreen>
+  <mat-sidenav #sidenav class="example-sidenav" fxLayout="column" fxLayoutGap="5px">
+    <button mat-button (click)="dashboard()">Dashboard</button>
+    
+  </mat-sidenav>
+
+  <mat-sidenav-content class="example-sidenav-content">
+    <div class="container" fxLayout.xs="column" fxLayout.gt-md="row" fxLayoutGap="10px">
+    <div fxFlex="50">
+      <mat-card>
+        <mat-card-title>Add User</mat-card-title>
+        <mat-card-content>
+          <form novalidate [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+            <div fxLayout="column">
+              <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">
+              <mat-input-container class="full-width" style="width: 45%"
+                dividerColor="{{(formErrors.firstname) ? 'warn' : 'primary'}}">
+                <input matInput type="text" formControlName="firstname" placeholder="First name" required>
+                <mat-hint>
+                  <span [hidden]="!(formErrors.firstname)">{{formErrors.firstname}}</span>
+                </mat-hint>
+              </mat-input-container>
+            
+            
+              <mat-input-container class="full-width" style="width: 45%"
+                dividerColor="{{(formErrors.lastname) ? 'warn' : 'primary'}}">
+                <input matInput type="text"  formControlName="lastname" placeholder="Last name" required>
+                <mat-hint>
+                  <span [hidden]="!(formErrors.lastname)">{{formErrors.lastname}}</span>
+                </mat-hint>
+              </mat-input-container>
+              </div>
+              
+              <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">
+              <mat-input-container style="width: 45%"  dividerColor="{{(formErrors.username) ? 'warn' : 'primary'}}">
+                <input matInput type="text"   formControlName="username" placeholder="Username" minlength="2" maxlength="20" required>
+                <mat-hint>
+                  <span [hidden]="!(formErrors.username)">{{formErrors.username}}</span>
+                </mat-hint>
+              </mat-input-container>
+            
+            
+              <mat-input-container class="full-width" style="width: 45%" dividerColor="{{(formErrors.password) ? 'warn' : 'primary'}}">
+                <input matInput type="password"  formControlName="password" placeholder="Password" minlength="3" maxlength="25" required>
+                <mat-hint>
+                  <span [hidden]="!(formErrors.password)">{{formErrors.password}}</span>
+                </mat-hint>
+              </mat-input-container>
+              </div>
+            
+              <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">
+              <mat-input-container style="width: 45%" dividerColor="{{(formErrors.mobile_no) ? 'warn' : 'primary'}}">
+                <input matInput type="tel"  formControlName="mobile_no" placeholder="Mobile Number" minlength="10" maxlength="10" pattern="[0-9]*">
+                <mat-hint>
+                  <span [hidden]="!(formErrors.mobile_no)">{{formErrors.mobile_no}}</span>
+                </mat-hint>
+              </mat-input-container>
+
+              <mat-form-field style="width: 45%">
+                <input matInput [matDatepicker]="dob" formControlName="dob" placeholder="Enter Date of Birth">
+                <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+                <mat-datepicker #dob></mat-datepicker>
+              </mat-form-field>
+              </div>
+
+              <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">
+              <mat-input-container class="full-width" style="width: 70%" dividerColor="{{(formErrors.email_id) ? 'warn' : 'primary'}}">
+                <input matInput type="email" formControlName="email_id" placeholder="Email Id" email required>
+                <mat-hint>
+                  <span [hidden]="!(formErrors.email_id)">{{formErrors.email_id}}</span>
+                </mat-hint>
+              </mat-input-container>
+              
+              </div>
+              
+            
+              <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">
+              <mat-input-container style="width: 45%" dividerColor="{{(formErrors.location) ? 'warn' : 'primary'}}">
+                <input matInput type="text"  formControlName="location" placeholder="Location" required>
+                <mat-hint>
+                  <span [hidden]="!(formErrors.loation)">{{formErrors.location}}</span>
+                </mat-hint>
+              </mat-input-container>
+
+              <mat-form-field style="width: 45%">
+                <mat-select formControlName="usertype" placeholder="Select Role" name="userRole">
+                  <mat-option *ngFor="let userRole of userRole" [value]="userRole.value">
+                    {{userRole.value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              </div>
+        
+                <!-- <input matInput type="text"  formControlName="designation" placeholder="Designation" required>
+                <mat-hint>
+                  <span [hidden]="!(formErrors.designation)">{{formErrors.designation}}</span>
+                </mat-hint> -->
+              <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">  
+                <mat-form-field style="width: 45%">
+                <mat-select formControlName="designation" placeholder="Select designation" name="Desig">
+                  <mat-option *ngFor="let Desig of Desig" [value]="Desig.value">
+                    {{Desig.value}}
+                  </mat-option>
+                </mat-select>
+                </mat-form-field>
+              
+            
+            
+              <!-- <mat-input-container class="full-width" dividerColor="{{(formErrors.department) ? 'warn' : 'primary'}}"></mat-input-container>
+                <input matInput type="text"  formControlName="department" placeholder="Department" required>
+                <mat-hint>
+                  <span [hidden]="!(formErrors.department)">{{formErrors.department}}</span>
+                </mat-hint>
+              </mat-input-container> -->
+              <mat-form-field style="width: 45%">
+              <mat-select formControlName="department" placeholder="Select department" name="Dept">
+                <mat-option *ngFor="let Dept of Dept" [value]="Dept.value">
+                  {{Dept.value}}
+                </mat-option>
+              </mat-select>
+              </mat-form-field>
+              </div>
+              <br><br>
+            <span class="button">
+              <button mat-raised-button type="submit" class="background-primary text-floral-white" [disabled]="signupForm.invalid">Submit</button>
+            </span>
+          </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <div fxFlex="50">
+      <mat-card>
+        <mat-card-title>Delete User</mat-card-title>
+        <mat-card-content>
+            <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              </mat-form-field>
+            <mat-table #table class="problemtable" [dataSource]="dataSource" matSort>
+                
+                <!-- Problem Name Column -->
+                <ng-container matColumnDef="username">
+                  <mat-header-cell id="headerusername" *matHeaderCellDef mat-sort-header> Username </mat-header-cell>
+                  <mat-cell class="tablecell" *matCellDef="let user">
+                    <!-- <button mat-icon-button color="warn" (click)="onDelete(user._id)" matTooltip="Delete a User" matTooltipPosition="above">
+                      <mat-icon>delete</mat-icon>
+                    </button> -->
+                    <p> {{user.username}} </p>
+                    
+                  </mat-cell>
+                </ng-container>
+                  
+                <!-- Problem status Column -->
+                <ng-container matColumnDef="firstname">
+                  <mat-header-cell id="headerfirstname" *matHeaderCellDef mat-sort-header> First Name </mat-header-cell>
+                  <mat-cell class="tablecell" *matCellDef="let user"> {{user.firstname}} </mat-cell>
+                </ng-container>
+                  
+                <!-- Customre name column -->
+                <ng-container matColumnDef="lastname">
+                  <mat-header-cell class="tableheader" *matHeaderCellDef > Last Name </mat-header-cell>
+                  <mat-cell class="tablecell" *matCellDef="let user"> {{user.lastname}} </mat-cell>
+                </ng-container>
+                  
+                <!-- Email Id -->
+                <!-- <ng-container matColumnDef="email_id">
+                  <mat-header-cell class="tableheader" *matHeaderCellDef > Email Id </mat-header-cell>
+                  <mat-cell class="tablecell" *matCellDef="let user"> {{user.email_id}} </mat-cell>
+                </ng-container> -->
+                      
+                <!-- User role Column -->
+                <ng-container matColumnDef="userrole">
+                  <mat-header-cell class="tableheader" *matHeaderCellDef> User role </mat-header-cell>
+                  <mat-cell  class="tablecell" *matCellDef="let user">
+                        {{user.usertype}}
+                  </mat-cell>
+                </ng-container>
+                
+                <ng-container matColumnDef="actions">
+                    <mat-header-cell class="tableheader" *matHeaderCellDef> Actions </mat-header-cell>
+                    <mat-cell  class="tablecell" *matCellDef="let user">
+                      <button mat-icon-button color="warn" (click)="onDelete(user._id)">
+                        <!-- <span class="fa fa-thrash fa-lg"></span> -->
+                        <mat-icon >delete</mat-icon>
+                      </button>    
+                    </mat-cell>
+                  </ng-container>
+                
+                  
+                  
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+            <mat-paginator [pageSizeOptions]="[5, 10, 25]" [length]="length"></mat-paginator>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
