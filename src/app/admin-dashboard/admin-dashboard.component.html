@@ -10,7 +10,7 @@
 <mat-sidenav-container class="example-container" style="top: 63px !important;" fullscreen>
   <mat-sidenav #sidenav class="example-sidenav" fxLayout="column" fxLayoutGap="5px">
     <button mat-button (click)="dashboard()">Dashboard</button>
-    
+    <button mat-button (click)="questionset()">Question Set</button>
   </mat-sidenav>
 
   <mat-sidenav-content class="example-sidenav-content">
@@ -22,82 +22,86 @@
           <form novalidate [formGroup]="signupForm" (ngSubmit)="onSubmit()">
             <div fxLayout="column">
               <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">
-              <mat-input-container class="full-width" style="width: 45%"
-                dividerColor="{{(formErrors.firstname) ? 'warn' : 'primary'}}">
-                <input matInput type="text" formControlName="firstname" placeholder="First name" required>
-                <mat-hint>
-                  <span [hidden]="!(formErrors.firstname)">{{formErrors.firstname}}</span>
-                </mat-hint>
-              </mat-input-container>
-            
-            
-              <mat-input-container class="full-width" style="width: 45%"
-                dividerColor="{{(formErrors.lastname) ? 'warn' : 'primary'}}">
-                <input matInput type="text"  formControlName="lastname" placeholder="Last name" required>
-                <mat-hint>
-                  <span [hidden]="!(formErrors.lastname)">{{formErrors.lastname}}</span>
-                </mat-hint>
-              </mat-input-container>
+                <mat-input-container class="full-width" style="width: 45%"
+                  dividerColor="{{(formErrors.firstname) ? 'warn' : 'primary'}}">
+                  <input matInput type="text" formControlName="firstname" placeholder="First name" required>
+                  <mat-hint>
+                    <span [hidden]="!(formErrors.firstname)">{{formErrors.firstname}}</span>
+                  </mat-hint>
+                </mat-input-container>
+              
+              
+                <mat-input-container class="full-width" style="width: 45%"
+                  dividerColor="{{(formErrors.lastname) ? 'warn' : 'primary'}}">
+                  <input matInput type="text"  formControlName="lastname" placeholder="Last name" required>
+                  <mat-hint>
+                    <span [hidden]="!(formErrors.lastname)">{{formErrors.lastname}}</span>
+                  </mat-hint>
+                </mat-input-container>
               </div>
               
               <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">
-              <mat-input-container style="width: 45%"  dividerColor="{{(formErrors.username) ? 'warn' : 'primary'}}">
-                <input matInput type="text"   formControlName="username" placeholder="Username" minlength="2" maxlength="20" required>
-                <mat-hint>
-                  <span [hidden]="!(formErrors.username)">{{formErrors.username}}</span>
-                </mat-hint>
-              </mat-input-container>
-            
-            
-              <mat-input-container class="full-width" style="width: 45%" dividerColor="{{(formErrors.password) ? 'warn' : 'primary'}}">
-                <input matInput type="password"  formControlName="password" placeholder="Password" minlength="3" maxlength="25" required>
-                <mat-hint>
-                  <span [hidden]="!(formErrors.password)">{{formErrors.password}}</span>
-                </mat-hint>
-              </mat-input-container>
+                <mat-input-container style="width: 45%"  dividerColor="{{(formErrors.username) ? 'warn' : 'primary'}}">
+                  <input matInput type="text"   formControlName="username" placeholder="Username" minlength="2" maxlength="20" required>
+                  <mat-hint>
+                    <span [hidden]="!(formErrors.username)">{{formErrors.username}}</span>
+                  </mat-hint>
+                </mat-input-container>
+              
+              
+                <mat-input-container class="full-width" style="width: 45%" dividerColor="{{(formErrors.password) ? 'warn' : 'primary'}}">
+                  <input matInput type="password"  formControlName="password" placeholder="Password" minlength="3" maxlength="25" required>
+                  <mat-hint>
+                    <span [hidden]="!(formErrors.password)">{{formErrors.password}}</span>
+                  </mat-hint>
+                </mat-input-container>
               </div>
             
               <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">
-              <mat-input-container style="width: 45%" dividerColor="{{(formErrors.mobile_no) ? 'warn' : 'primary'}}">
-                <input matInput type="tel"  formControlName="mobile_no" placeholder="Mobile Number" minlength="10" maxlength="10" pattern="[0-9]*">
-                <mat-hint>
-                  <span [hidden]="!(formErrors.mobile_no)">{{formErrors.mobile_no}}</span>
-                </mat-hint>
-              </mat-input-container>
+                <mat-input-container style="width: 45%" dividerColor="{{(formErrors.mobile_no) ? 'warn' : 'primary'}}">
+                  <input matInput type="tel"  formControlName="mobile_no" placeholder="Mobile Number" minlength="10" maxlength="10" pattern="[0-9]*">
+                  <mat-hint>
+                    <span [hidden]="!(formErrors.mobile_no)">{{formErrors.mobile_no}}</span>
+                  </mat-hint>
+                </mat-input-container>
 
-              <mat-form-field style="width: 45%">
-                <input matInput [matDatepicker]="dob" formControlName="dob" placeholder="Enter Date of Birth">
-                <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
-                <mat-datepicker #dob></mat-datepicker>
-              </mat-form-field>
+                <mat-form-field style="width: 45%">
+                  <input matInput [matDatepicker]="dob" formControlName="dob" placeholder="Enter Date of Birth">
+                  <mat-datepicker-toggle matSuffix [for]="dob"></mat-datepicker-toggle>
+                  <mat-datepicker #dob></mat-datepicker>
+                </mat-form-field>
               </div>
 
               <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">
-              <mat-input-container class="full-width" style="width: 70%" dividerColor="{{(formErrors.email_id) ? 'warn' : 'primary'}}">
-                <input matInput type="email" formControlName="email_id" placeholder="Email Id" email required>
-                <mat-hint>
-                  <span [hidden]="!(formErrors.email_id)">{{formErrors.email_id}}</span>
-                </mat-hint>
-              </mat-input-container>
+                <mat-input-container class="full-width" style="width: 70%" dividerColor="{{(formErrors.email_id) ? 'warn' : 'primary'}}">
+                  <input matInput type="email" formControlName="email_id" placeholder="Email Id" email required>
+                  <mat-hint>
+                    <span [hidden]="!(formErrors.email_id)">{{formErrors.email_id}}</span>
+                  </mat-hint>
+                </mat-input-container>
               
               </div>
               
             
               <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">
-              <mat-input-container style="width: 45%" dividerColor="{{(formErrors.location) ? 'warn' : 'primary'}}">
-                <input matInput type="text"  formControlName="location" placeholder="Location" required>
-                <mat-hint>
-                  <span [hidden]="!(formErrors.loation)">{{formErrors.location}}</span>
-                </mat-hint>
-              </mat-input-container>
+                <mat-form-field dividerColor="{{(qsetFormErrors.location) ? 'warn' : 'primary'}}">
+                  <mat-select formControlName="location" placeholder="Select Location" name="lOc" required>
+                    <mat-option *ngFor="let lOc of lOc" [value]="lOc.value">
+                      {{lOc.value}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-hint>
+                    <span [hidden]="!(qsetFormErrors.location)">{{qsetFormErrors.location}}</span>
+                  </mat-hint>
+                </mat-form-field>
 
-              <mat-form-field style="width: 45%">
-                <mat-select formControlName="usertype" placeholder="Select Role" name="userRole">
-                  <mat-option *ngFor="let userRole of userRole" [value]="userRole.value">
-                    {{userRole.value}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                <mat-form-field style="width: 45%">
+                  <mat-select formControlName="usertype" placeholder="Select Role" name="userRole">
+                    <mat-option *ngFor="let userRole of userRole" [value]="userRole.value">
+                      {{userRole.value}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
         
                 <!-- <input matInput type="text"  formControlName="designation" placeholder="Designation" required>
@@ -121,13 +125,13 @@
                   <span [hidden]="!(formErrors.department)">{{formErrors.department}}</span>
                 </mat-hint>
               </mat-input-container> -->
-              <mat-form-field style="width: 45%">
-              <mat-select formControlName="department" placeholder="Select department" name="Dept">
-                <mat-option *ngFor="let Dept of Dept" [value]="Dept.value">
-                  {{Dept.value}}
-                </mat-option>
-              </mat-select>
-              </mat-form-field>
+                <mat-form-field style="width: 45%">
+                <mat-select formControlName="department" placeholder="Select department" name="Dept">
+                  <mat-option *ngFor="let Dept of Dept" [value]="Dept.value">
+                    {{Dept.value}}
+                  </mat-option>
+                </mat-select>
+                </mat-form-field>
               </div>
               <br><br>
             <span class="button">

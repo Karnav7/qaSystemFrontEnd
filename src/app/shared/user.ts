@@ -16,4 +16,5 @@ export class User {
 export const user_role = [{value: 'Employee'}, {value: 'Manager'}];
 export const dept = [{value: 'Software'}, {value: 'Support'}];
 export const desig = [{value: 'Engineer'}, {value: 'Manager'}];
+export const loc = [{value: 'Mumbai'}, {value: 'Pune'}, {value: 'Delhi'}, {value: 'Chennai'}];
 

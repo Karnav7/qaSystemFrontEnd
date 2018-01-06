@@ -4,7 +4,7 @@ import { MatSidenavModule, MatTableDataSource, MatPaginator, MatSort, MatDialog,
 import { Router } from '@angular/router';
 
 import { AuthService } from '../services/auth.service';
-import { User, user_role, dept, desig } from '../shared/user';
+import { User, user_role, dept, desig, loc } from '../shared/user';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -19,6 +19,7 @@ export class AdminDashboardComponent implements OnInit {
   userRole = user_role;
   Dept = dept;
   Desig = desig;
+  lOc = loc;
   dob: Date;
   // user.usertype = 'Employee';
   // selectedValueDept = 'Software';
@@ -215,6 +216,10 @@ export class AdminDashboardComponent implements OnInit {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
+  }
+
+  questionset() {
+    this.router.navigate(['/questionset']);
   }
 
 }

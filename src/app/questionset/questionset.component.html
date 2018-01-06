@@ -8,5 +8,136 @@
 </mat-toolbar>
 
 <mat-sidenav-container class="example-container" style="top: 63px !important;" fullscreen>
-  
+    <mat-sidenav #sidenav class="example-sidenav" fxLayout="column" fxLayoutGap="5px">
+        <button mat-button (click)="dashboard()">Dashboard</button>
+        <button mat-button (click)="questionset()">Question Set</button>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="example-sidenav-content">
+      <div class="container" fxLayout.md-gt="row" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+        <div fxFlex>
+          <mat-card>
+            <mat-card-title>Add question set</mat-card-title>
+            <mat-card-content>
+              <form novalidate [formGroup]="questionsetForm" (ngSubmit)="onQsetSubmit()">
+                <div fxLayout="column">
+                  <div fxFlex>
+                  <mat-form-field dividerColor="{{(qsetFormErrors.location) ? 'warn' : 'primary'}}">
+                    <mat-select formControlName="location" placeholder="Select Location" name="lOc" required>
+                      <mat-option *ngFor="let lOc of lOc" [value]="lOc.value">
+                        {{lOc.value}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-hint>
+                      <span [hidden]="!(qsetFormErrors.location)">{{qsetFormErrors.location}}</span>
+                    </mat-hint>
+                  </mat-form-field>
+                  </div>
+
+                  <div fxFlex>
+                  <mat-form-field dividerColor="{{(qsetFormErrors.designation) ? 'warn' : 'primary'}}">
+                    <mat-select formControlName="designation" placeholder="Select designation" name="Desig" required>
+                      <mat-option *ngFor="let Desig of Desig" [value]="Desig.value">
+                        {{Desig.value}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-hint>
+                      <span [hidden]="!(qsetFormErrors.designation)">{{qsetFormErrors.designation}}</span>
+                    </mat-hint>
+                  </mat-form-field>
+                  </div>
+
+                  <div fxFlex>
+                  <mat-form-field dividerColor="{{(qsetFormErrors.department) ? 'warn' : 'primary'}}">
+                    <mat-select formControlName="department" placeholder="Select department" name="Dept" required>
+                      <mat-option *ngFor="let Dept of Dept" [value]="Dept.value">
+                        {{Dept.value}}
+                      </mat-option>
+                    </mat-select>
+                    <mat-hint>
+                        <span [hidden]="!(qsetFormErrors.department)">{{qsetFormErrors.department}}</span>
+                      </mat-hint>
+                  </mat-form-field>
+                  </div>
+                  <br><br>
+                  <span class="button">
+                    <button mat-raised-button type="submit" class="background-primary text-floral-white" [disabled]="questionsetForm.invalid">Submit</button>
+                  </span>
+
+                </div>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div fxFlex>
+          <mat-card>
+            <mat-card-title>Add question</mat-card-title>
+            <mat-card-content>
+              <form novalidate [formGroup]="questionForm" (ngSubmit)="onQuestionSubmit()">
+                <div fxLayout="column">
+                  <div fxFlex>
+                    <mat-input-container dividerColor="{{(qErrors.name) ? 'warn' : 'primary'}}">
+                      <input matInput type="text"  formControlName="name" placeholder="Enter question name" required>
+                      <mat-hint>
+                        <span [hidden]="!(qErrors.name)">{{qErrors.name}}</span>
+                      </mat-hint>
+                    </mat-input-container>
+                  </div>
+                  <div fxFlex>
+                    <mat-input-container dividerColor="{{(qErrors.marks) ? 'warn' : 'primary'}}">
+                      <input matInput type="tel"  formControlName="marks" placeholder="Enter marks" maxlength="2" pattern="[0-9]*" required>
+                      <mat-hint>
+                        <span [hidden]="!(qErrors.marks)">{{qErrors.marks}}</span>
+                      </mat-hint>
+                    </mat-input-container>
+                  </div>
+                  <br><br>
+                  <span class="button">
+                    <button mat-raised-button type="submit" class="background-primary text-floral-white" [disabled]="questionForm.invalid">Submit</button>
+                  </span>
+                </div>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+
+        <div fxFlex>
+          <mat-card>
+            <mat-card-title>Add options</mat-card-title>
+            <mat-card-content>
+              <form novalidate [formGroup]="optionForm" (ngSubmit)="onoptionFormSubmit()">
+                <div fxLayout="column">
+                  <div fxFlex>
+                    <mat-input-container dividerColor="{{(oErrors.name) ? 'warn' : 'primary'}}">
+                      <input matInput type="text"  formControlName="name" placeholder="Enter question name" required>
+                      <mat-hint>
+                        <span [hidden]="!(oErrors.name)">{{oErrors.name}}</span>
+                      </mat-hint>
+                    </mat-input-container>
+                  </div>
+
+                  <div fxFlex>
+                    <mat-form-field dividerColor="{{(oErrors.isAnswer) ? 'warn' : 'primary'}}">
+                      <mat-select formControlName="isAnswer" placeholder="Choose Answer" name="isAnswer" required>
+                        <mat-option *ngFor="let IsAnswer of IsAnswer" [value]="IsAnswer.value">
+                          {{IsAnswer.value}}
+                        </mat-option>
+                      </mat-select>
+                      <mat-hint>
+                        <span [hidden]="!(oErrors.isAnswer)">{{oErrors.isAnswer}}</span>
+                      </mat-hint>
+                    </mat-form-field>
+                  </div>
+                  <br><br>
+                  <span class="button">
+                    <button mat-raised-button type="submit" class="background-primary text-floral-white" [disabled]="optionForm.invalid">Submit</button>
+                  </span>
+                </div>
+              </form>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+    </mat-sidenav-content>
 </mat-sidenav-container>

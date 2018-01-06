@@ -17,16 +17,19 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashboard.component';
+import { QuestionsetComponent } from './questionset/questionset.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
 import { baseURL } from './shared/baseurl';
 import { AuthService } from './services/auth.service';
 import { ProcesshttpmsgService } from './services/processhttpmsg.service';
+import { QuestionsetService } from './services/questionset.service';
 
 import { RestangularModule, Restangular } from 'ngx-restangular';
 import { RestangularConfigFactory } from './shared/restConfig';
-import { QuestionsetComponent } from './questionset/questionset.component';
+import { QuestionSet } from './shared/questionset';
+
 
 
 
@@ -58,6 +61,7 @@ import { QuestionsetComponent } from './questionset/questionset.component';
   providers: [
     AuthService,
     ProcesshttpmsgService,
+    QuestionSet,
     { provide: 'BaseURL', useValue: baseURL}
   ],
   bootstrap: [AppComponent]
