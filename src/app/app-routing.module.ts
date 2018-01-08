@@ -6,6 +6,7 @@ import { SignupComponent } from './signup/signup.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashboard.component';
 import { QuestionsetComponent } from './questionset/questionset.component';
+import { AdminReviewComponent } from './admin-review/admin-review.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'admin-dashboard', component: AdminDashboardComponent},
   {path: 'employee-dashboard', component: EmployeeDashboardComponent},
   {path: 'questionset', component: QuestionsetComponent},
+  {path: 'adminreview', component: AdminReviewComponent},
   {path: '', redirectTo: '/login', pathMatch: 'full'}
 ];
 

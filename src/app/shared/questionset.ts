@@ -1,5 +1,6 @@
 export class QuestionSet {
     _id: string;
+    name: string;
     department: string;
     designation: string;
     location: string;

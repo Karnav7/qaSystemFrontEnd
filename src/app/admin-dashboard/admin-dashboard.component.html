@@ -84,14 +84,14 @@
               
             
               <div fxFlex fxlayout.gt-md="row" fxlayout.xs="column">
-                <mat-form-field dividerColor="{{(qsetFormErrors.location) ? 'warn' : 'primary'}}">
+                <mat-form-field dividerColor="{{(formErrors.location) ? 'warn' : 'primary'}}">
                   <mat-select formControlName="location" placeholder="Select Location" name="lOc" required>
                     <mat-option *ngFor="let lOc of lOc" [value]="lOc.value">
                       {{lOc.value}}
                     </mat-option>
                   </mat-select>
                   <mat-hint>
-                    <span [hidden]="!(qsetFormErrors.location)">{{qsetFormErrors.location}}</span>
+                    <span [hidden]="!(formErrors.location)">{{formErrors.location}}</span>
                   </mat-hint>
                 </mat-form-field>
 

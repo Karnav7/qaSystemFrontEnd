@@ -28,7 +28,8 @@ import { QuestionsetService } from './services/questionset.service';
 
 import { RestangularModule, Restangular } from 'ngx-restangular';
 import { RestangularConfigFactory } from './shared/restConfig';
-import { QuestionSet } from './shared/questionset';
+import { AdminReviewComponent } from './admin-review/admin-review.component';
+
 
 
 
@@ -41,7 +42,8 @@ import { QuestionSet } from './shared/questionset';
     SignupComponent,
     AdminDashboardComponent,
     EmployeeDashboardComponent,
-    QuestionsetComponent
+    QuestionsetComponent,
+    AdminReviewComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +63,7 @@ import { QuestionSet } from './shared/questionset';
   providers: [
     AuthService,
     ProcesshttpmsgService,
-    QuestionSet,
+    QuestionsetService,
     { provide: 'BaseURL', useValue: baseURL}
   ],
   bootstrap: [AppComponent]

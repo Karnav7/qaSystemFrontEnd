@@ -29,12 +29,16 @@ export class QuestionsetComponent implements OnInit {
   IsAnswer = isanswer;
 
   qsetFormErrors = {
+    'name': '',
     'department': '',
     'designation': '',
     'location': ''
   };
 
   qsetValidationMessages = {
+    'name': {
+      'required': 'Kindly enter name.'
+    },
     'department': {
       'required': 'Kindly enter department.'
     },
@@ -79,7 +83,8 @@ export class QuestionsetComponent implements OnInit {
     private router: Router,
     // private questionsetService: QuestionsetService,
     private fb: FormBuilder,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private questionsetService: QuestionsetService
   ) {
     this.createquestonsetForm();
     this.createquestionForm();
@@ -91,6 +96,7 @@ export class QuestionsetComponent implements OnInit {
 
   createquestonsetForm() {
     this.questionsetForm = this.fb.group({
+      name: ['', [Validators.required]],
       location: ['', [Validators.required]],
       department: ['', [Validators.required]],
       designation: ['', [Validators.required]]
@@ -119,6 +125,18 @@ export class QuestionsetComponent implements OnInit {
   onQsetSubmit() {
     this.questionset = this.questionsetForm.value;
     console.log('questionset', this.questionset);
+
+    this.questionsetService.postQuestionSet(this.questionset).subscribe(qset => {
+      console.log('qset', qset);
+      localStorage.setItem('qset', qset._id);
+      // localStorage.setItem('qset_temp', qset._id);
+      this.snackBar.open(qset.name + ' saved successfully!', 'Ok', {
+        duration: 2000
+      });
+    },
+    errmess => {
+      this.errMess = <any>errmess;
+    });
   }
 
   createquestionForm() {
@@ -150,6 +168,51 @@ export class QuestionsetComponent implements OnInit {
   onQuestionSubmit() {
     this.question = this.questionForm.value;
     console.log('question', this.question);
+
+    const qsetid = localStorage.getItem('qset');
+    if (qsetid) {
+      this.questionsetService.postQuestion(this.question, qsetid).subscribe(question => {
+        console.log('question', question);
+        const x = question.questions.length;
+        console.log('length', x);
+        localStorage.setItem('qId', question.questions[question.questions.length - 1]._id);
+        // localStorage.setItem('qId_temp', question.questions[0]._id);
+        this.snackBar.open('Question added successfully to Question set!', 'Ok', {
+          duration: 2000
+        });
+      },
+      errmess => {
+        this.errMess = <any>errmess;
+      });
+    } else {
+      this.snackBar.open('If you want to add more questions then click add button on Qustionset card', 'ok', {
+        duration: 5000
+      });
+    }
+
+
+  }
+
+  // Stop adding more questions in question set
+  onQFinish() {
+    localStorage.removeItem('qsetId');
+  }
+
+  // Adding questions in question set
+  onQAdd() {
+    // const y = localStorage.getItem('qsetId');
+    // if ( y === null) {
+    //   const x = localStorage.getItem('qsetId_temp');
+    //   localStorage.setItem('qsetId', x);
+    //   this.snackBar.open('Now start adding questions in question section', 'Ok', {
+    //     duration: 2000
+    //   });
+    // } else {
+    //   this.snackBar.open('No need to click on add button, continue adding questions', 'Ok', {
+    //     duration: 3000
+    //   });
+    // }
+
   }
 
   createoptionForm() {
@@ -176,13 +239,66 @@ export class QuestionsetComponent implements OnInit {
         }
       }
     }
-  }
-
+  } 
+ 
   onoptionFormSubmit() {
     this.option = this.optionForm.value;
     console.log('Option', this.option);
+
+    const qsetid = localStorage.getItem('qset');
+    const qid = localStorage.getItem('qId');
+
+    if (qsetid !== null && qid !== null) {
+      this.questionsetService.postOption(this.option, qsetid, qid).subscribe(option => {
+        console.log('option', option);
+        localStorage.setItem('oId', option.questions[0].options[0]._id);
+        this.snackBar.open('Option added successfully to question!', 'Ok', {
+          duration: 2000
+        });
+      },
+      errmess => {
+        this.errMess = <any>errmess;
+      });
+    } else if (qsetid === null && qid !== null) {
+      this.snackBar.open('If you want to add more options then click add button on Qustionset card', 'ok', {
+        duration: 5000
+      });
+    } else if (qsetid !== null && qid === null) {
+      this.snackBar.open('If you want to add more options then click add button on Question card', 'ok', {
+        duration: 5000
+      });
+    } else {
+      this.snackBar.open('If you want to add more options then click add button on Qustionset card and Question card', 'ok', {
+        duration: 5000
+      });
+    }
+    
   }
 
+  // Stop adding more options in a question
+  onOFinish() {
+    // localStorage.removeItem('qId');
+  }
+
+  // continue adding more options in a question
+  onOAdd() {
+    // if ( localStorage.getItem('qId') === null ) {
+    //   const x = localStorage.getItem('qId_temp');
+    //   localStorage.setItem('qId', x);
+    //   this.snackBar.open('Now start adding options in option section', 'Ok', {
+    //     duration: 2000
+    //   });
+    // } else {
+    //   this.snackBar.open('No need to click on add button, continue adding options', 'Ok', {
+    //     duration: 3000
+    //   });
+    // }
+  }
+
+  review() {
+    this.router.navigate(['/adminreview']);
+  }
+  
   dashboard() {
     this.router.navigate(['/admin-dashboard']);
   }

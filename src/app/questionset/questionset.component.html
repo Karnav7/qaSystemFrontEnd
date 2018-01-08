@@ -14,13 +14,21 @@
     </mat-sidenav>
 
     <mat-sidenav-content class="example-sidenav-content">
-      <div class="container" fxLayout.md-gt="row" fxLayout.xs="column" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+      <div class="container" fxLayout.md-gt="row" fxLayout.xs="column" fxLayoutAlign="space-around top" fxLayoutGap="10px">
         <div fxFlex>
           <mat-card>
             <mat-card-title>Add question set</mat-card-title>
             <mat-card-content>
               <form novalidate [formGroup]="questionsetForm" (ngSubmit)="onQsetSubmit()">
                 <div fxLayout="column">
+                  <div fxFlex>
+                  <mat-input-container dividerColor="{{(qsetFormErrors.name) ? 'warn' : 'primary'}}">
+                    <input matInput type="text"  formControlName="name" placeholder="Enter question set name" required>
+                    <mat-hint>
+                      <span [hidden]="!(qsetFormErrors.name)">{{qsetFormErrors.name}}</span>
+                    </mat-hint>
+                  </mat-input-container>
+                  </div>
                   <div fxFlex>
                   <mat-form-field dividerColor="{{(qsetFormErrors.location) ? 'warn' : 'primary'}}">
                     <mat-select formControlName="location" placeholder="Select Location" name="lOc" required>
@@ -67,6 +75,9 @@
                 </div>
               </form>
             </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button type="link" class="background-primary text-floral-white" (click)="review()">Review</button>
+            </mat-card-actions>
           </mat-card>
         </div>
 
@@ -93,12 +104,17 @@
                     </mat-input-container>
                   </div>
                   <br><br>
-                  <span class="button">
+                  <span class="button"> 
                     <button mat-raised-button type="submit" class="background-primary text-floral-white" [disabled]="questionForm.invalid">Submit</button>
+                    <!-- <button mat-raised-button type="submit" class="background-primary text-floral-white" (click)="onQAdd()" >Add</button> -->
+                    <!-- <button mat-raised-button class="background-primary text-floral-white" (click)="onQFinish()" >Finish</button> -->
                   </span>
                 </div>
               </form>
             </mat-card-content>
+            <!-- <mat-card-actions>
+                <button mat-raised-button type="submit" class="background-primary text-floral-white" [disabled]="questionForm.invalid">Submit</button>
+            </mat-card-actions> -->
           </mat-card>
         </div>
 
@@ -110,7 +126,7 @@
                 <div fxLayout="column">
                   <div fxFlex>
                     <mat-input-container dividerColor="{{(oErrors.name) ? 'warn' : 'primary'}}">
-                      <input matInput type="text"  formControlName="name" placeholder="Enter question name" required>
+                      <input matInput type="text"  formControlName="name" placeholder="Enter option name" required>
                       <mat-hint>
                         <span [hidden]="!(oErrors.name)">{{oErrors.name}}</span>
                       </mat-hint>
@@ -119,7 +135,7 @@
 
                   <div fxFlex>
                     <mat-form-field dividerColor="{{(oErrors.isAnswer) ? 'warn' : 'primary'}}">
-                      <mat-select formControlName="isAnswer" placeholder="Choose Answer" name="isAnswer" required>
+                      <mat-select formControlName="isAnswer" placeholder="Set Answer" name="isAnswer" required>
                         <mat-option *ngFor="let IsAnswer of IsAnswer" [value]="IsAnswer.value">
                           {{IsAnswer.value}}
                         </mat-option>
@@ -132,10 +148,17 @@
                   <br><br>
                   <span class="button">
                     <button mat-raised-button type="submit" class="background-primary text-floral-white" [disabled]="optionForm.invalid">Submit</button>
+                    <!-- <button mat-raised-button class="background-primary text-floral-white" (click)="onOAdd()" >Add</button> -->
+                    <!-- <button mat-raised-button class="background-primary text-floral-white" (click)="onOFinish()" >Finish</button> -->
+
                   </span>
+                  
                 </div>
               </form>
             </mat-card-content>
+            <!-- <mat-card-actions>
+                <button mat-raised-button type="submit" class="background-primary text-floral-white" [disabled]="optionForm.invalid">Submit</button>
+            </mat-card-actions> -->
           </mat-card>
         </div>
       </div>
