@@ -1,4 +1,4 @@
-<mat-toolbar color="primary" class="mat-elevation-z8">
+<mat-toolbar color="primary">
   <a type="button" mat-mini-fab (click)="back()">
     <span class="fa fa-arrow-left fa-lg"></span>
   </a>
@@ -6,3 +6,67 @@
   <span class="flex-spacer"></span>
   <a mat-button routerLink="/login"><span class="fa fa-sign-out fa-lg"></span> Logout</a> 
 </mat-toolbar>
+
+<div class="container" fxLayout="column" fxLayoutAlign="space-around top">
+  <mat-card>
+    <mat-card-title>Review</mat-card-title>
+    <mat-card-content>
+      <div fxLayout="column">
+        <div fxFlex>
+          <mat-form-field>
+            <mat-select [(value)]="selectedValue" placeholder="Select questionset name" name="name">
+              <mat-option *ngFor="let name of name" [value]="name.value">
+                {{name.value}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <button mat-raised-button type="submit" class="background-primary text-floral-white" (click)="onSubmit()">
+            Submit
+          </button>
+        </div>
+        <div *ngIf="questionset">
+          <!-- <h2>Test Name: {{questionset[0].name}}</h2> -->
+          <!-- <mat-list>
+            <div *ngFor="let question of questions">
+              <mat-list-item>
+                {{question.name}} {{question.marks}} marks
+              </mat-list-item>
+                  <mat-list style="margin-left: 30px">
+                    <div *ngFor="let option of question.options">
+                    <mat-list-item >
+                     {{option.name}} 
+                    </mat-list-item>
+                    </div>
+                  </mat-list>
+                
+              
+            </div>
+          </mat-list> -->
+          <mat-table #table [dataSource]="dataSource">
+            <!-- createdAt column -->
+            <ng-container matColumnDef="name">
+              <mat-header-cell class="tableheader" *matHeaderCellDef> <h2>Test Name: {{questionset[0].name}}</h2> </mat-header-cell>
+              <mat-cell class="tablecell" *matCellDef="let questions">
+                <h4>{{questions.name}}</h4> 
+                <mat-list style="margin-left: 30px"><ol>
+                  <div *ngFor="let option of questions.options">
+                  <mat-list-item >
+                    <li>{{option.name}}</li> 
+                  </mat-list-item>
+                  </div>
+                  </ol>
+                </mat-list>
+              </mat-cell>
+              
+            </ng-container>
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+          </mat-table>
+          <mat-paginator [pageSizeOptions]="[2, 5, 10]" [length]="length">
+          </mat-paginator>
+        </div>
+        
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
