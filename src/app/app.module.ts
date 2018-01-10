@@ -18,6 +18,7 @@ import { SignupComponent } from './signup/signup.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { EmployeeDashboardComponent } from './employee-dashboard/employee-dashboard.component';
 import { QuestionsetComponent } from './questionset/questionset.component';
+import { AdminReviewComponent } from './admin-review/admin-review.component';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -28,7 +29,7 @@ import { QuestionsetService } from './services/questionset.service';
 
 import { RestangularModule, Restangular } from 'ngx-restangular';
 import { RestangularConfigFactory } from './shared/restConfig';
-import { AdminReviewComponent } from './admin-review/admin-review.component';
+
 
 
 
