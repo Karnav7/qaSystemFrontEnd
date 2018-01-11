@@ -30,7 +30,7 @@ body {
 .container {
     margin: 20px;
     width:95%;
-
+    
     display: flex;
 }
 
@@ -74,4 +74,16 @@ body {
 .button {
     display: block;
     text-align: center;
+}
+
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+    background-color: $primary-color;
+}
+
+.mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+    border-color: $primary-color;
+}
+
+.mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
+    background-color: $lt-gray
 }

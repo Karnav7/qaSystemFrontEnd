@@ -119,7 +119,11 @@ export class AuthService {
     headers.append('Authorization', 'bearer ' + actual);
     console.log(headers);
 
-    return this._http.get(baseURL + 'users/'+id, {headers: headers})
+    //trim Id
+    var tempId = id.substr(1);
+    var Id = tempId.slice(0, -1);
+
+    return this._http.get(baseURL + 'users/' + Id, {headers: headers})
     .map(res => res.json())
     .catch( error => {
       return this.processHTTPMsgService.handleError(error);

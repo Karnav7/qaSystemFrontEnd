@@ -29,11 +29,7 @@ import { QuestionsetService } from './services/questionset.service';
 
 import { RestangularModule, Restangular } from 'ngx-restangular';
 import { RestangularConfigFactory } from './shared/restConfig';
-
-
-
-
-
+import { TestHomeComponent } from './test-home/test-home.component';
 
 
 @NgModule({
@@ -44,7 +40,8 @@ import { RestangularConfigFactory } from './shared/restConfig';
     AdminDashboardComponent,
     EmployeeDashboardComponent,
     QuestionsetComponent,
-    AdminReviewComponent
+    AdminReviewComponent,
+    TestHomeComponent
   ],
   imports: [
     BrowserModule,
