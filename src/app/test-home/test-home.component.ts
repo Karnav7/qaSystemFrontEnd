@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
-import { MatSidenavModule, MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef, MatSnackBar, MatRadioChange } from '@angular/material';
+import { MatSidenavModule, MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef, MatSnackBar, MatRadioChange, MatButtonToggleGroup } from '@angular/material';
 
 import { User } from '../shared/user';
 import { QuestionSet, Question, Option, loc, dept, desig, isanswer } from '../shared/questionset';
 import { AuthService } from '../services/auth.service';
 import { QuestionsetService } from '../services/questionset.service';
 import { min } from 'moment';
+import { query } from '@angular/animations/src/animation_metadata';
 
 @Component({
   selector: 'app-test-home',
@@ -41,9 +42,11 @@ export class TestHomeComponent implements OnInit {
   minutes: number;
   seconds: number;
 
-  disabled: boolean;
+  // disabled: boolean;
   selectedOption: object;
-  selectedOptions = [];
+  // selectedOptions = [];
+  selected = false;
+
 
   constructor(
     private authService: AuthService,
@@ -173,14 +176,34 @@ export class TestHomeComponent implements OnInit {
     });
   }
 
-  onSelectionChange(s) {
+  onSelectionChange(question: Question, option: Option) {
     // console.log('ans', s);
     // s.isSelected = true;
     // console.log('test', s);
-    this.selectedOption = s;
+    this.selectedOption = option;
+    option.isSelected = true;
+    question.answered = true;
+    question.options.forEach((x) => {if (x._id !== option._id) {x.isSelected = false;}});
     console.log(this.selectedOption);
-    this.selectedOptions.push(s);
-    console.log(this.selectedOptions);
+    // this.selectedOptions.push(s);
+    // console.log(this.selectedOptions);
+    console.log('question', question);
+  }
+
+  // onSelect(questions: Question, option: Option) {
+  //   questions.options.forEach((x) => {if (x._id === option._id) {x.isSelected = true;}});
+  //   console.log('question', questions);
+  //   console.log('option', option);
+    
+  
+  // }
+
+  onSubmitTest() {
+    let answers = [];
+    this.qset[0].questions.forEach(x => answers.push({'uid': this.user._id, 'qsetId': this.qset[0]._id, 'qid': x._id, 'answered': x.answered}));
+
+    console.log(this.qset[0].questions);
+    console.log(answers);
   }
 
   onStop() {

@@ -11,6 +11,7 @@ export class Question {
     _id: string;
     name: string;
     marks: number;
+    answered: boolean;
     options: Option[];
 }
 

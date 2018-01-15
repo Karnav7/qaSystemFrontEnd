@@ -67,7 +67,7 @@
                     </ol>
                   </mat-list> -->
                   <mat-radio-group class="example-radio-group" >
-                    <mat-radio-button class="example-radio-button" *ngFor="let option of questions.options" [value]="option.name" (click)="onSelectionChange(option)">
+                    <mat-radio-button class="example-radio-button" [checked]="option.isSelected" *ngFor="let option of questions.options" [value]="option.name" (click)="onSelectionChange(questions, option)">
                       {{option.name}}
                     </mat-radio-button>
                   </mat-radio-group>
@@ -80,6 +80,11 @@
             </mat-table>
             <mat-paginator [pageSizeOptions]="[1, 2, 5, 10]" [length]="length">
             </mat-paginator>
+          </div>
+          <div fxLayout="row">
+            <button mat-raised-button type="submit" class="background-primary text-floral-white" (click)="onSubmitTest()">
+              Submit test
+            </button>
           </div>
         </div>
         
