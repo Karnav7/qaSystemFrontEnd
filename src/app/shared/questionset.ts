@@ -4,6 +4,7 @@ export class QuestionSet {
     department: string;
     designation: string;
     location: string;
+    test_duration: number;
     questions: Question[];
 }
 

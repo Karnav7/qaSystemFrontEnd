@@ -28,7 +28,7 @@
         <div fxLayout.gt-md="column">
           <div fxLayout.gt-md="row" fxLayout.xs="column" *ngIf="test === false">
             <div fxFlex>
-              <p>Duration: 30 mins</p>
+              <p>Duration: {{qset[0].test_duration}} mins</p>
             </div>
             <span fxFlex flex-spacer></span>
             <div fxFlex>
@@ -41,7 +41,7 @@
                 Start test
               </button>
               &nbsp;
-              <button mat-raised-button class="background-primary text-floral-white" (click)="onStop()">
+              <button mat-raised-button class="background-primary text-floral-white" (click)="onStop()" *ngIf="test === true">
                 Stop test
               </button>
             </div>
@@ -82,7 +82,7 @@
             </mat-paginator>
           </div>
           <div fxLayout="row">
-            <button mat-raised-button type="submit" class="background-primary text-floral-white" (click)="onSubmitTest()">
+            <button mat-raised-button type="submit" class="background-primary text-floral-white" (click)="onSubmitTest()" *ngIf="test === true">
               Submit test
             </button>
           </div>
