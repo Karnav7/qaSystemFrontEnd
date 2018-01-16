@@ -87,3 +87,7 @@ body {
 .mat-radio-button.mat-accent .mat-radio-ripple .mat-ripple-element {
     background-color: $lt-gray
 }
+
+.flex-spacer {
+    flex: 1 1 auto;
+}

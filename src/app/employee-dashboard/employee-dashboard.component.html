@@ -7,10 +7,45 @@
 <a mat-button routerLink="/login"><span class="fa fa-sign-out fa-lg"></span> Logout</a> 
 </mat-toolbar>
 
-<div>
-  <p id="demo"></p>
+<div class="container" fxLayout="column">
+  <mat-tab-group>
+    <mat-tab label="Test">
+      <br>
+      <span>Kindly click on 'Apply for text' button to choose test which are available for you at the moment!</span><br>
+      <div>
+        <button mat-raised-button type="link" class="background-primary text-floral-white" [routerLink]="['/test-home']">Apply for test</button> 
+      </div>
+    </mat-tab>
+    <mat-tab label="Previous Test Result">
+      <br>
+      <div *ngIf="tests">
+        <mat-table #table [dataSource]="dataSource">
+          <ng-container matColumnDef="name">
+            <mat-header-cell class="tableheader" *matHeaderCellDef>
+              Previous Test Results
+            </mat-header-cell>
+            <mat-cell class="tablecell" *matCellDef="let tests; let idx = index">
+              <mat-accordion>
+                <mat-expansion-panel [expanded]="step === idx" (opened)="setStep(idx)" hideToggle="true">
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{tests.qsetId.name}}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <p>hello</p>
+                  <mat-action-row>
+                    <button mat-button color="warn" (click)="prevStep()">Previous</button>                      
+                    <button mat-button color="primary" (click)="nextStep()">Next</button>
+                  </mat-action-row>
+                </mat-expansion-panel>
+              </mat-accordion>
+            </mat-cell>
+          </ng-container>
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+        </mat-table>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 
-<div>
-  <button mat-raised-button type="link" class="background-primary text-floral-white" [routerLink]="['/test-home']">Apply for test</button> 
-</div>

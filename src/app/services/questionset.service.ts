@@ -143,4 +143,23 @@ export class QuestionsetService {
     });
   }
 
+  getQuestionSetbyId(qsetId): Observable<QuestionSet> {
+    const authToken = this.authService.getToken();
+    console.log(authToken);
+    //trim first character
+    let myString = authToken.substr(1);   // Need to trim first and last character of authToken because it stores in the for ""abc"" which results  in mismatch of token
+    //trim last character
+    var actual = myString.slice(0, -1);  
+    console.log(authToken);
+    let headers = new Headers();
+    headers.append('Authorization', 'bearer ' + actual);
+    console.log(headers);
+
+    return this._http.get(baseURL + 'questionsets/' + qsetId, {headers: headers} )
+    .map(res => res.json())
+    .catch(error => {
+      return this.processHTTPMsgService.handleError(error);
+    });
+  }
+
 }

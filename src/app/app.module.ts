@@ -6,7 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatSidenavModule,
   MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule, MatTooltipModule, MatSortModule,
   MatSlideToggleModule, MatToolbarModule, MatListModule, MatGridListModule, MatSnackBarModule, MatPaginatorModule,
-  MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule, MatTableModule } from '@angular/material';
+  MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule, MatTableModule, MatTabsModule, MatExpansionModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -26,10 +26,12 @@ import { baseURL } from './shared/baseurl';
 import { AuthService } from './services/auth.service';
 import { ProcesshttpmsgService } from './services/processhttpmsg.service';
 import { QuestionsetService } from './services/questionset.service';
+import { TestService } from './services/test.service';
 
 import { RestangularModule, Restangular } from 'ngx-restangular';
 import { RestangularConfigFactory } from './shared/restConfig';
 import { TestHomeComponent } from './test-home/test-home.component';
+import { DialogReportCardComponent } from './test-home/dialog-report-card/dialog-report-card.component';
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { TestHomeComponent } from './test-home/test-home.component';
     EmployeeDashboardComponent,
     QuestionsetComponent,
     AdminReviewComponent,
-    TestHomeComponent
+    TestHomeComponent,
+    DialogReportCardComponent
   ],
   imports: [
     BrowserModule,
@@ -52,16 +55,20 @@ import { TestHomeComponent } from './test-home/test-home.component';
     MatButtonModule, MatCheckboxModule, MatDatepickerModule, MatNativeDateModule, MatFormFieldModule, MatSidenavModule,
     MatInputModule, MatRadioModule, MatSelectModule, MatSliderModule, MatTooltipModule, MatSortModule,
     MatSlideToggleModule, MatToolbarModule, MatListModule, MatGridListModule, MatSnackBarModule, MatPaginatorModule,
-    MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule, MatTableModule,
+    MatCardModule, MatIconModule, MatProgressSpinnerModule, MatDialogModule, MatTableModule, MatTabsModule, MatExpansionModule,
     FlexLayoutModule,
     AppRoutingModule,
     ReactiveFormsModule,
     RestangularModule.forRoot(RestangularConfigFactory)
   ],
+  entryComponents: [
+    DialogReportCardComponent
+  ],
   providers: [
     AuthService,
     ProcesshttpmsgService,
     QuestionsetService,
+    TestService,
     { provide: 'BaseURL', useValue: baseURL}
   ],
   bootstrap: [AppComponent]

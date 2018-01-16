@@ -1,6 +1,6 @@
 export class Test {
     _id: string;
-    uid: string;
+    uId: string;
     qsetId: string;
     marks_scored: number;
     total_marks: number;

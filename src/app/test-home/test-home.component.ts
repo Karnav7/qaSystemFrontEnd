@@ -6,8 +6,11 @@ import { QuestionSet, Question, Option, loc, dept, desig, isanswer } from '../sh
 import { Test } from '../shared/test';
 import { AuthService } from '../services/auth.service';
 import { QuestionsetService } from '../services/questionset.service';
+import { TestService } from '../services/test.service';
 import { min } from 'moment';
 import { query } from '@angular/animations/src/animation_metadata';
+
+import { DialogReportCardComponent } from './dialog-report-card/dialog-report-card.component';
 
 @Component({
   selector: 'app-test-home',
@@ -52,10 +55,16 @@ export class TestHomeComponent implements OnInit {
 
   stoptest: boolean;
 
+  mode = 'test';               // for displaying test q&o during test session
+  disabled = false;
+
 
   constructor(
     private authService: AuthService,
-    private qsetService: QuestionsetService
+    private qsetService: QuestionsetService,
+    private testService: TestService,
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -230,16 +239,46 @@ export class TestHomeComponent implements OnInit {
     console.log(answers);
     console.log('score', score);
     this.testsession.duration = this.qset[0].test_duration;
-    this.testsession.uid = this.user._id;
+    this.testsession.uId = this.user._id;
     this.testsession.qsetId = this.qset[0]._id;
     this.testsession.marks_scored = score;
     this.testsession.total_marks = this.total_marks;
     console.log('test', this.testsession);
+    // this.testService.postTest(this.testsession).subscribe(test => {
+    //   this.testsession = test;
+    //   localStorage.setItem('testId', test._id);
+    //   console.log('stored in server', this.testsession);
+    //   this.snackBar.open('Test submitted successfully!', 'Ok', {
+    //     duration: 2000
+    //   });
+    // },
+    // errmess => {
+    //   this.errMess = <any>errmess;
+    //   this.snackBar.open('Error: ' + this.errMess + 'Kindly resubmit test!', 'Ok', {
+    //     duration: 3000
+    //   });
+    // });
+    this.mode = 'result';
+    this.disabled = true;
+    console.log('mode', this.mode);
+  }
+
+  isCorrect(question: Question) {
+    return question.options.every(x => x.isSelected === x.isAnswer) ? 'correct' : 'wrong';
+  }
+
+  onClickScoreCard(qsetId): void {
+    const dialogRef = this.dialog.open(DialogReportCardComponent, {
+      width: '500px',
+    });
+    console.log('qsetId', qsetId);
+    localStorage.setItem('qsetId', qsetId);
   }
 
   onStop() {
     this.test = false;
     this.stoptest = true;
+    this.mode = 'test';
   }
 
 }

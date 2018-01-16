@@ -1,0 +1,18 @@
+<mat-dialog-content>
+  <mat-card *ngIf="qset && test">
+    <mat-card-title>
+      <span style="align-self: center">Test Score Card</span>
+      <button mat-mini-fab mat-dialog-close style="float: right;">
+        <span class="fa fa-close fa-lg"></span>
+      </button>
+    </mat-card-title><hr>
+    <mat-card-content>
+      <h5 align="center">Test name: {{qset.name}}</h5>
+      <span>Test date: {{test.createdAt | date}}</span>
+      <span style="float: right;">Test time: {{test.createdAt | date:'shortTime'}}</span><br>
+      <span>Test duration: {{test.duration}} mins</span><br>
+      <span>Marks scored: {{test.marks_scored}}</span>
+      <span style="float: right;">Total marks: {{test.total_marks}}</span>
+    </mat-card-content>
+  </mat-card>
+</mat-dialog-content>
