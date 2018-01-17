@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatSidenavModule, MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef, MatSnackBar,
          MatRadioChange, MatButtonToggleGroup, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader,
-        MatExpansionPanelActionRow } from '@angular/material';
+        MatExpansionPanelActionRow, MatAccordionDisplayMode, MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material';
 
 import { User } from '../shared/user';
 import { QuestionSet, Question, Option, loc, dept, desig, isanswer } from '../shared/questionset';
@@ -36,7 +36,7 @@ export class EmployeeDashboardComponent implements OnInit {
   length: number;
   
   // table columns
-  displayedColumns = ['name'];
+  displayedColumns = ['Previous Test Results'];
   dataSource: MatTableDataSource<Test>;
 
   errMess: string;
@@ -47,6 +47,7 @@ export class EmployeeDashboardComponent implements OnInit {
   ) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit() {
     const uId: string = localStorage.getItem('Id');
@@ -58,12 +59,19 @@ export class EmployeeDashboardComponent implements OnInit {
       console.log(this.tests);
       this.dataSource = new MatTableDataSource(this.tests);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       this.length = this.tests.length;
     },
     errmess => {
       this.errMess = <any>errmess;
     });
   }
+
+  // applyFilter(filterValue: string) {
+  //   filterValue = filterValue.trim(); // Remove whitespace
+  //   filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+  //   this.dataSource.filter = filterValue;
+  // }
 
   setStep(index: number) {
     this.step = index;

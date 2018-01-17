@@ -30,6 +30,7 @@ export class QuestionsetComponent implements OnInit {
 
   qsetFormErrors = {
     'name': '',
+    'test_duration': '',
     'department': '',
     'designation': '',
     'location': ''
@@ -38,6 +39,9 @@ export class QuestionsetComponent implements OnInit {
   qsetValidationMessages = {
     'name': {
       'required': 'Kindly enter name.'
+    },
+    'test_duration': {
+      'required': 'Kindly enter duration of test in minutes'
     },
     'department': {
       'required': 'Kindly enter department.'
@@ -97,6 +101,7 @@ export class QuestionsetComponent implements OnInit {
   createquestonsetForm() {
     this.questionsetForm = this.fb.group({
       name: ['', [Validators.required]],
+      test_duration: ['', [Validators.required]],
       location: ['', [Validators.required]],
       department: ['', [Validators.required]],
       designation: ['', [Validators.required]]

@@ -4,7 +4,21 @@
   </a> -->
 <span>&nbsp;QA System</span>
 <span class="flex-spacer"></span>
-<a mat-button routerLink="/login"><span class="fa fa-sign-out fa-lg"></span> Logout</a> 
+    <!-- <a mat-button routerLink="/login"><span class="fa fa-sign-out fa-lg"></span> Logout</a>  -->
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>person</mat-icon>
+    <span>Profile</span>
+  </button>
+  <button mat-menu-item routerLink="/login">
+    <mat-icon>input</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
+
 </mat-toolbar>
 
 <div class="container" fxLayout="column">
@@ -19,20 +33,26 @@
     <mat-tab label="Previous Test Result">
       <br>
       <div *ngIf="tests">
+        <!-- <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field> -->
         <mat-table #table [dataSource]="dataSource">
-          <ng-container matColumnDef="name">
-            <mat-header-cell class="tableheader" *matHeaderCellDef>
-              Previous Test Results
-            </mat-header-cell>
+          <ng-container matColumnDef="Previous Test Results">
+            <mat-header-cell id="test" *matHeaderCellDef>Previous Test Results</mat-header-cell>
             <mat-cell class="tablecell" *matCellDef="let tests; let idx = index">
-              <mat-accordion>
-                <mat-expansion-panel [expanded]="step === idx" (opened)="setStep(idx)" hideToggle="true">
+              <mat-accordion class="example-headers-align">
+                <mat-expansion-panel [expanded]="step === idx" (opened)="setStep(idx)" hideToogle="true" >
                   <mat-expansion-panel-header>
                     <mat-panel-title>
-                      {{tests.qsetId.name}}
+                      <h4>{{tests.qsetId.name}}</h4>
                     </mat-panel-title>
                   </mat-expansion-panel-header>
-                  <p>hello</p>
+                  <div>
+                    <span>Test Date: {{tests.createdAt | date}}</span>
+                    <span style="float: right">Test Time: {{tests.createdAt | date: 'shortTime'}}</span><br>
+                    <span>Marks Scored: {{tests.marks_scored}}</span>
+                    <span style="float: right">Total Marks: {{tests.total_marks}}</span>
+                  </div>
                   <mat-action-row>
                     <button mat-button color="warn" (click)="prevStep()">Previous</button>                      
                     <button mat-button color="primary" (click)="nextStep()">Next</button>
@@ -44,6 +64,8 @@
           <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
           <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
         </mat-table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" [length]="length">
+        </mat-paginator>
       </div>
     </mat-tab>
   </mat-tab-group>

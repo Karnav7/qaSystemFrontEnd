@@ -30,6 +30,14 @@
                   </mat-input-container>
                   </div>
                   <div fxFlex>
+                      <mat-input-container dividerColor="{{(qsetFormErrors.test_duration) ? 'warn' : 'primary'}}">
+                        <input matInput type="number"  formControlName="test_duration" placeholder="Enter duration of test" required>
+                        <mat-hint>
+                          <span [hidden]="!(qsetFormErrors.test_duration)">{{qsetFormErrors.test_duration}}</span>
+                        </mat-hint>
+                      </mat-input-container>
+                    </div>
+                  <div fxFlex>
                   <mat-form-field dividerColor="{{(qsetFormErrors.location) ? 'warn' : 'primary'}}">
                     <mat-select formControlName="location" placeholder="Select Location" name="lOc" required>
                       <mat-option *ngFor="let lOc of lOc" [value]="lOc.value">
