@@ -33,6 +33,7 @@ import { RestangularModule, Restangular } from 'ngx-restangular';
 import { RestangularConfigFactory } from './shared/restConfig';
 import { TestHomeComponent } from './test-home/test-home.component';
 import { DialogReportCardComponent } from './test-home/dialog-report-card/dialog-report-card.component';
+import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import { DialogReportCardComponent } from './test-home/dialog-report-card/dialog
     QuestionsetComponent,
     AdminReviewComponent,
     TestHomeComponent,
-    DialogReportCardComponent
+    DialogReportCardComponent,
+    EmployeeProfileComponent
   ],
   imports: [
     BrowserModule,

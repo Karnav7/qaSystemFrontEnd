@@ -1,0 +1,118 @@
+<mat-toolbar color="primary">
+  <!-- <a type="button" mat-mini-fab (click)="sidenav.open()">
+      <span class="fa fa-bars fa-lg"></span>
+  </a> -->
+<span>&nbsp;QA System</span>
+<span class="flex-spacer"></span>
+    <!-- <a mat-button routerLink="/login"><span class="fa fa-sign-out fa-lg"></span> Logout</a>  -->
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>person</mat-icon>
+    <span>Profile</span>
+  </button>
+  <button mat-menu-item routerLink="/login">
+    <mat-icon>input</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
+
+</mat-toolbar>
+
+<div class="container" fxLayout="column">
+  <mat-card>
+    <mat-card-title><h2 align="center">Profile</h2></mat-card-title>
+    <mat-card-content *ngIf="user">
+      <mat-accordion>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header class="example-headers-align">
+            <mat-panel-title>
+              Username
+            </mat-panel-title>
+            <mat-panel-description class="mat-expansion-panel-header-description">
+              {{user.username}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          
+            <mat-input-container dividerColor="{{(formErrors.username) ? 'warn' : 'primary'}}">
+              <input matInput type="text" [(ngModel)]="Username" placeholder="Change username" minlength="2" maxlength="20">
+              <mat-hint>
+                <span [hidden]="!(formErrors.username)">Username must be atleast more than 1 character and lest than 20 characters</span>
+              </mat-hint>
+            </mat-input-container>
+          
+          <mat-action-row>
+            <button mat-button class="background-primary text-floral-white">
+              <span class="fa fa-floppy-o fa-lg"></span> Save
+            </button>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header class="example-headers-align">
+            <mat-panel-title>
+              Email Id
+            </mat-panel-title>
+            <mat-panel-description class="mat-expansion-panel-header-description">
+              {{user.email_id}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput type="email" placeholder="Change email id">
+          </mat-form-field>
+          <mat-action-row>
+            <button mat-button class="background-primary text-floral-white">
+              <span class="fa fa-floppy-o fa-lg"></span> Save
+            </button>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header class="example-headers-align">
+            <mat-panel-title>
+              Contact Number
+            </mat-panel-title>
+            <mat-panel-description class="mat-expansion-panel-header-description"> 
+              {{user.mobile_no}}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput type="tel" placeholder="Change Contact number">
+          </mat-form-field>
+          <mat-action-row>
+            <button mat-button class="background-primary text-floral-white">
+              <span class="fa fa-floppy-o fa-lg"></span> Save
+            </button>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+        <mat-expansion-panel>
+          <mat-expansion-panel-header class="example-headers-align">
+            <mat-panel-title>
+              Change Password
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <mat-form-field>
+            <input matInput type="password" placeholder="Enter new password">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <input matInput type="password" placeholder="Re-enter new password">
+          </mat-form-field>
+          <mat-action-row>
+            <button mat-button class="background-primary text-floral-white">
+              <span class="fa fa-floppy-o fa-lg"></span> Save
+            </button>
+          </mat-action-row>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+    </mat-card-content>
+  </mat-card>
+  
+
+</div>
+

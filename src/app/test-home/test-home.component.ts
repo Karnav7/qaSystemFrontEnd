@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Input, Output, EventEmitter } from '@angular/core';
 import { MatSidenavModule, MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef, MatSnackBar, MatRadioChange, MatButtonToggleGroup } from '@angular/material';
 
+
 import { User } from '../shared/user';
 import { QuestionSet, Question, Option, loc, dept, desig, isanswer } from '../shared/questionset';
 import { Test } from '../shared/test';
@@ -11,6 +12,9 @@ import { min } from 'moment';
 import { query } from '@angular/animations/src/animation_metadata';
 
 import { DialogReportCardComponent } from './dialog-report-card/dialog-report-card.component';
+
+import { disableDebugTools } from '@angular/platform-browser/src/browser/tools/tools';
+import { Router } from '@angular/router/src/router';
 
 @Component({
   selector: 'app-test-home',
@@ -58,13 +62,16 @@ export class TestHomeComponent implements OnInit {
   mode = 'test';               // for displaying test q&o during test session
   disabled = false;
 
+  timer: string;
+
 
   constructor(
     private authService: AuthService,
     private qsetService: QuestionsetService,
     private testService: TestService,
     private snackBar: MatSnackBar,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    
   ) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -133,48 +140,28 @@ export class TestHomeComponent implements OnInit {
     this.stoptest = false;
     this.test = true;
 
+    let mins = this.qset[0].test_duration;
+    let seconds = 0;
+    const k = setInterval(() => {
+      seconds = seconds - 1;
+      if ( seconds < 0) {
+        seconds = 59;
+        mins = mins - 1;
+      }
+      console.log('mins: ', mins);
+      // document.getElementById('demo').innerHTML = mins + 'm ' + seconds + 's';
+      this.timer = mins + 'm ' + seconds + 's';
+      if ( this.stoptest === true ) {
+        mins = -1;
+      }
+      if ( mins < 0 ) {
+        clearInterval(k);
+        // document.getElementById('demo').innerHTML = 'EXPIRED';
+        this.timer = 'EXPIRED';
+        this.onSubmitTest();
+      }
+    }, 1000);
     
-    // timer
-    // let counter = 0;
-    // let seconds = 0;
-    // let minutes = 0;
-    // let hours = 0;
-    // const k = setInterval(function() {
-    //   counter = counter + 1;
-    //   seconds = seconds + 1;
-    //   if (seconds > 59) {
-    //     seconds = 0;
-    //     minutes += 1;
-    //   }
-
-    //   if (minutes > 59) {
-    //     minutes = 0;
-    //     hours += 1;
-    //   }
-
-    //   // if (seconds === 59 ) {
-    //   //   minutes = minutes - 1;
-    //   // }
-
-    //   // if ((seconds % 60) === 0)  {
-    //   //   minutes = minutes - 1;
-    //   //   seconds = 0;
-    //   // }
-    //   document.getElementById('demo').innerHTML = minutes + 'm ' + seconds + 's ';
-
-    //   // if ( minutes === 0 && seconds === 0 ) {
-    //     // if (a) === true) {
-    //     //   console.log('yo');
-    //     //   clearInterval(k);
-    //     //   document.getElementById('demo').innerHTML = 'EXPIRED';
-    //     // }
-    //     if ( counter === 1800 ){
-    //       clearInterval(k);
-    //       document.getElementById('demo').innerHTML = 'EXPIRED';
-    //     }
-    //   // }
-    // }, 1000);
-
     const name = this.selectedValue;
     this.sum = 0;
     this.qsetService.getQuestionsetbyName(name).subscribe(qset => {
@@ -280,5 +267,7 @@ export class TestHomeComponent implements OnInit {
     this.stoptest = true;
     this.mode = 'test';
   }
+
+  
 
 }

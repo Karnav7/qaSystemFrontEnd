@@ -4,8 +4,28 @@
   </a> -->
 <span>&nbsp;QA System</span>
 <span class="flex-spacer"></span>
-<a mat-button routerLink="/login"><span class="fa fa-sign-out fa-lg"></span> Logout</a> 
+    <!-- <a mat-button routerLink="/login"><span class="fa fa-sign-out fa-lg"></span> Logout</a>  -->
+<button mat-icon-button [matMenuTriggerFor]="menu">
+  <mat-icon>more_vert</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>
+    <mat-icon>person</mat-icon>
+    <span>Profile</span>
+  </button>
+  <button mat-menu-item routerLink="/login">
+    <mat-icon>input</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
+
 </mat-toolbar>
+
+<nav class="breadcrumb">
+  <!-- <a class="breadcrumb-item" href="/employee-dashboard">Dashboard</a> -->
+  <a class="breadcrumb-item" routerLink="/employee-dashboard">Dashboard</a>
+  <span class="breadcrumb-item active">Test</span>
+</nav>
 
 <div class="container" fxLayout="column" fxLayoutAlign="space-around top">
   <div fxFlex style="align-self: center" *ngIf="test === false">
@@ -54,7 +74,8 @@
                   <h2 style="display: inline">Test Name: {{qset[0].name}}</h2>
                   <!-- <span class="flex-spacer"></span> -->
                   &nbsp;&nbsp;
-                  <h2 style="display: inline">Time: </h2><h2 style="display: inline" id="demo"></h2>
+                  <!-- <h2 style="display: inline">Time: </h2><h2 style="display: inline" id="demo"></h2> -->
+                  <h2 style="display: inline">Time: {{timer}}</h2>
                 </mat-header-cell>
                 <mat-cell class="tablecell" *matCellDef="let questions">
                   <h4>{{questions.name}}</h4> 
