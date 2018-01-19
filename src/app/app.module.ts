@@ -28,6 +28,7 @@ import { AuthService } from './services/auth.service';
 import { ProcesshttpmsgService } from './services/processhttpmsg.service';
 import { QuestionsetService } from './services/questionset.service';
 import { TestService } from './services/test.service';
+import { ProfileService } from './services/profile.service'
 
 import { RestangularModule, Restangular } from 'ngx-restangular';
 import { RestangularConfigFactory } from './shared/restConfig';
@@ -72,6 +73,7 @@ import { EmployeeProfileComponent } from './employee-profile/employee-profile.co
     ProcesshttpmsgService,
     QuestionsetService,
     TestService,
+    ProfileService,
     { provide: 'BaseURL', useValue: baseURL}
   ],
   bootstrap: [AppComponent]

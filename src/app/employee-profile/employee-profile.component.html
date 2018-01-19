@@ -36,19 +36,18 @@
               {{user.username}}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          
-            <mat-input-container dividerColor="{{(formErrors.username) ? 'warn' : 'primary'}}">
-              <input matInput type="text" [(ngModel)]="Username" placeholder="Change username" minlength="2" maxlength="20">
+
+          <form #usernameForm="ngForm" novalidate (ngSubmit)="onSubmitUsername()">
+            <mat-input-container dividerColor="{{(usernameError) ? 'warn' : 'primary'}}">
+              <input matInput type="text" [(ngModel)]="Username" name="username" placeholder="Change username" minlength="2" maxlength="20">
               <mat-hint>
-                <span [hidden]="!(formErrors.username)">Username must be atleast more than 1 character and lest than 20 characters</span>
+                <span>{{usernameErrorName}}</span>
               </mat-hint>
             </mat-input-container>
-          
-          <mat-action-row>
-            <button mat-button class="background-primary text-floral-white">
+            <button mat-button class="background-primary text-floral-white" type="submit" [disabled]="!usernameForm.valid">
               <span class="fa fa-floppy-o fa-lg"></span> Save
             </button>
-          </mat-action-row>
+          </form>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
@@ -60,14 +59,14 @@
               {{user.email_id}}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <mat-form-field>
-            <input matInput type="email" placeholder="Change email id">
-          </mat-form-field>
-          <mat-action-row>
-            <button mat-button class="background-primary text-floral-white">
+          <form #emailIdForm="ngForm" novalidate (ngSubmit)="onSubmitEmailId()">
+            <mat-input-container dividerColor="{{(emailidError) ? 'warn' : 'primary'}}">
+              <input matInput type="email" [(ngModel)]="EmailId" name="email_id" placeholder="Change email id" email>
+            </mat-input-container>
+            <button mat-button type="submit" class="background-primary text-floral-white" [disabled]="!emailIdForm.valid">
               <span class="fa fa-floppy-o fa-lg"></span> Save
             </button>
-          </mat-action-row>
+          </form>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
@@ -79,14 +78,14 @@
               {{user.mobile_no}}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <mat-form-field>
-            <input matInput type="tel" placeholder="Change Contact number">
-          </mat-form-field>
-          <mat-action-row>
-            <button mat-button class="background-primary text-floral-white">
+          <form #contactnoForm="ngForm" novalidate (ngSubmit)="onSubmitContactno()">
+            <mat-input-container dividerColor="{{(contactnoError) ? 'warn' : 'primary'}}">
+              <input matInput type="tel" [(ngModel)]="Contactno" name="mobile_no" placeholder="Change Contact number" minlength="10" maxlength="10" pattern="[0-9]*">
+            </mat-input-container>
+            <button mat-button type="submit" class="background-primary text-floral-white" [disabled]="!contactnoForm.valid">
               <span class="fa fa-floppy-o fa-lg"></span> Save
             </button>
-          </mat-action-row>
+          </form>
         </mat-expansion-panel>
 
         <mat-expansion-panel>
@@ -95,18 +94,19 @@
               Change Password
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <mat-form-field>
-            <input matInput type="password" placeholder="Enter new password">
-          </mat-form-field>
-          <br>
-          <mat-form-field>
-            <input matInput type="password" placeholder="Re-enter new password">
-          </mat-form-field>
-          <mat-action-row>
-            <button mat-button class="background-primary text-floral-white">
+          <form #passwordForm="ngForm" novalidate (ngSubmit)="onSubmitPassword()">
+            <mat-input-container dividerColor="{{(passwordError) ? 'warn' : 'primary'}}">
+              <input matInput type="password" [(ngModel)]="NewPassword" name="new_password" placeholder="Enter new password" minlength="6" maxlength="20">
+            </mat-input-container>
+            <br>
+            <mat-input-container>
+              <input matInput type="password" [(ngModel)]="ConfirmPassword" name="confirm_password" placeholder="Re-enter new password">
+            </mat-input-container>
+            <br>
+            <button mat-button type="submit" class="background-primary text-floral-white" [disabled]="!passwordForm.valid">
               <span class="fa fa-floppy-o fa-lg"></span> Save
             </button>
-          </mat-action-row>
+          </form>
         </mat-expansion-panel>
 
       </mat-accordion>

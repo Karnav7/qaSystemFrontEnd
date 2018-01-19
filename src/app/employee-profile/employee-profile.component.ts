@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSidenavModule, MatTableDataSource, MatPaginator, MatSort, MatDialog, MatDialogRef, MatSnackBar,
   MatRadioChange, MatButtonToggleGroup, MatAccordion, MatExpansionPanel, MatExpansionPanelHeader,
- MatExpansionPanelActionRow, MatAccordionDisplayMode, MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material';
+ MatExpansionPanelActionRow, MatAccordionDisplayMode, MatMenuTrigger, MatMenu, MatMenuItem, MatHint } from '@angular/material';
 
 import { User } from '../shared/user';
 import { AuthService } from '../services/auth.service';
+import { ProfileService } from '../services/profile.service';
+import { duration } from 'moment';
 
 @Component({
   selector: 'app-employee-profile',
@@ -14,41 +16,31 @@ import { AuthService } from '../services/auth.service';
 export class EmployeeProfileComponent implements OnInit {
 
   user: User;
+  id: string;
   errMess: string;
   Username: string;
   EmailId: string;
   Contactno: number;
   NewPassword: string;
   ConfirmPassword: string;
+  usernameError = false;
+  usernameErrorName: string;
+  emailidError: boolean;
+  emailidErrorName: string;
+  contactnoError: boolean;
+  contactnoErrorName: string;
+  passwordError = false;
 
-  formErrors = {
-    'username': '',
-    'email_id': '',
-    'mob_no': ''
-  };
-
-  validationMessages = {
-    'username': {
-      'minlength': 'Username must be atleast 2 characters.',
-      'maxlength': 'Username must not exceed more than 20 characters.'
-    },
-    'email_id': {
-      'email': 'Email id is not in valid format.'
-    },
-    'mob_no': {
-      'pattern': 'Mobile number must contain only numbers.',
-      'minlength': 'Mobile number must be atleast 10 digits.',
-      'maxlength': 'Mobile number must not exceed more than 10 digits'
-    }
-  };
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private profileService: ProfileService,
+    private snackBar: MatSnackBar
   ) { }
 
   ngOnInit() {
-    const id = localStorage.getItem('Id');
-    this.authService.getUserById(id).subscribe(user => {
+    this.id = localStorage.getItem('Id');
+    this.authService.getUserById(this.id).subscribe(user => {
       this.user = user;
       console.log('user', this.user);
     },
@@ -57,19 +49,69 @@ export class EmployeeProfileComponent implements OnInit {
     });
   }
 
-  onUsernameValueChanged(data?: any) {
-    if (!this.Username) { return; }
-    const form = this.Username;
-    for (const field in this.formErrors) {
-      // clear previous error message (if any)
-      this.formErrors[field] = '';
-      const control = form.get(field);
-      if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
-        for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
-        }
-      }
+  onSubmitUsername() {
+    if ( this.Username.length < 2 ) {
+      this.usernameError = true;
+      this.usernameErrorName = 'Username must contain atleast 2 characters';
+    } else if ( this.Username.length > 2) {
+      this.usernameError = false;
+    }
+    if ( this.usernameError === false) {
+      this.user.username = this.Username.trim();
+      this.profileService.updateUser(this.user, this.id).subscribe(user => {
+        this.user = user;
+        this.snackBar.open('Username changed successfully!', 'Ok', {
+          duration: 3000
+        });
+      },
+      errmess => {
+        this.errMess = <any>errmess;
+      });
+    }
+  }
+
+  onSubmitEmailId() {
+    this.user.email_id = this.EmailId.trim();
+    this.profileService.updateUser(this.user, this.id).subscribe(user => {
+      this.user = user;
+      this.snackBar.open('Email id changed successfully!', 'Ok', {
+        duration: 3000
+      });
+    },
+    errmess => {
+      this.errMess = <any>errmess;
+    });
+  }
+
+  onSubmitContactno() {
+    this.user.mobile_no = this.Contactno;
+    this.profileService.updateUser(this.user, this.id).subscribe(user => {
+      this.user = user;
+      this.snackBar.open('Contact Number changed successfully!', 'Ok', {
+        duration: 3000
+      });
+    },
+    errmess => {
+      this.errMess = <any>errmess;
+    });
+  }
+
+  onSubmitPassword() {
+    if ( (this.NewPassword === this.ConfirmPassword) && ((this.NewPassword.length <= 20) && (this.NewPassword.length >= 6)) ) {
+      this.passwordError = false;
+      console.log('testuser', this.user);
+      this.user.password = this.NewPassword;
+      this.profileService.updateUser(this.user, this.id).subscribe(user => {
+        this.user = user;
+        this.snackBar.open('Password changed successfully!', 'Ok', {
+          duration: 3000
+        });
+      },
+      errmess => {
+        this.errMess = <any>errmess;
+      });
+    } else {
+      this.passwordError = true;
     }
   }
 

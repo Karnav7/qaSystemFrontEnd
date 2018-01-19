@@ -68,7 +68,7 @@
           </div>
           <div *ngIf="mode === 'test'">
             <mat-table #table [dataSource]="dataSource">
-              <!-- createdAt column -->
+              <!-- question column -->
               <ng-container matColumnDef="name">
                 <mat-header-cell class="tableheader" *matHeaderCellDef>
                   <h2 style="display: inline">Test Name: {{qset[0].name}}</h2>
@@ -77,8 +77,8 @@
                   <!-- <h2 style="display: inline">Time: </h2><h2 style="display: inline" id="demo"></h2> -->
                   <h2 style="display: inline">Time: {{timer}}</h2>
                 </mat-header-cell>
-                <mat-cell class="tablecell" *matCellDef="let questions">
-                  <h4>{{questions.name}}</h4> 
+                <mat-cell class="tablecell" *matCellDef="let questions; let i = 0;">
+                  <h4> {{i + 1}}. {{questions.name}}</h4> 
                   <!-- <mat-list style="margin-left: 30px"><ol>
                     <div *ngFor="let option of questions.options">
                       <mat-list-item>

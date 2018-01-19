@@ -63,7 +63,7 @@ export class TestHomeComponent implements OnInit {
   disabled = false;
 
   timer: string;
-
+  i: number;
 
   constructor(
     private authService: AuthService,
@@ -139,6 +139,7 @@ export class TestHomeComponent implements OnInit {
   onStart() {
     this.stoptest = false;
     this.test = true;
+    
 
     let mins = this.qset[0].test_duration;
     let seconds = 0;
@@ -176,6 +177,7 @@ export class TestHomeComponent implements OnInit {
       for ( let i = 0; i < this.questions.length; i++) {
         this.options = this.questions[i].options;
         console.log('options', this.options);
+        
       }
     },
     errmess => {
