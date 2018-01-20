@@ -75,6 +75,7 @@ export class TestHomeComponent implements OnInit {
   ) { }
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   // @Output()
   // change: EventEmitter<MatRadioChange>;
@@ -171,6 +172,7 @@ export class TestHomeComponent implements OnInit {
       this.questions = this.qset[0].questions;
       this.dataSource = new MatTableDataSource(this.questions);
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
       this.length = this.questions.length;
       console.log(this.qset[0].questions);
       console.log(this.questions);
@@ -233,20 +235,20 @@ export class TestHomeComponent implements OnInit {
     this.testsession.marks_scored = score;
     this.testsession.total_marks = this.total_marks;
     console.log('test', this.testsession);
-    // this.testService.postTest(this.testsession).subscribe(test => {
-    //   this.testsession = test;
-    //   localStorage.setItem('testId', test._id);
-    //   console.log('stored in server', this.testsession);
-    //   this.snackBar.open('Test submitted successfully!', 'Ok', {
-    //     duration: 2000
-    //   });
-    // },
-    // errmess => {
-    //   this.errMess = <any>errmess;
-    //   this.snackBar.open('Error: ' + this.errMess + 'Kindly resubmit test!', 'Ok', {
-    //     duration: 3000
-    //   });
-    // });
+    this.testService.postTest(this.testsession).subscribe(test => {
+      this.testsession = test;
+      localStorage.setItem('testId', test._id);
+      console.log('stored in server', this.testsession);
+      this.snackBar.open('Test submitted successfully!', 'Ok', {
+        duration: 2000
+      });
+    },
+    errmess => {
+      this.errMess = <any>errmess;
+      this.snackBar.open('Error: ' + this.errMess + 'Kindly resubmit test!', 'Ok', {
+        duration: 3000
+      });
+    });
     this.mode = 'result';
     this.disabled = true;
     console.log('mode', this.mode);
