@@ -10,6 +10,7 @@ export class QuestionSet {
 
 export class Question {
     _id: string;
+    no: number;
     name: string;
     marks: number;
     answered: boolean;

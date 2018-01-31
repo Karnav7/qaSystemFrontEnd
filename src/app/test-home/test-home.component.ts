@@ -15,6 +15,7 @@ import { DialogReportCardComponent } from './dialog-report-card/dialog-report-ca
 
 import { disableDebugTools } from '@angular/platform-browser/src/browser/tools/tools';
 import { Router } from '@angular/router/src/router';
+import { HostListener } from '@angular/core/src/metadata/directives';
 
 @Component({
   selector: 'app-test-home',
@@ -65,6 +66,8 @@ export class TestHomeComponent implements OnInit {
   timer: string;
   i: number;
 
+  isStopTestButtonHidden = false;
+
   constructor(
     private authService: AuthService,
     private qsetService: QuestionsetService,
@@ -112,6 +115,8 @@ export class TestHomeComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isStopTestButtonHidden = false;
+    this.mode = 'test';
     const name = this.selectedValue;
     this.sum = 0;
     this.qsetService.getQuestionsetbyName(name).subscribe(qset => {
@@ -140,7 +145,7 @@ export class TestHomeComponent implements OnInit {
   onStart() {
     this.stoptest = false;
     this.test = true;
-    
+    this.mode = 'test';
 
     let mins = this.qset[0].test_duration;
     let seconds = 0;
@@ -210,6 +215,7 @@ export class TestHomeComponent implements OnInit {
   // }
 
   onSubmitTest() {
+    this.isStopTestButtonHidden = true;
     let answers = [];
     let score = 0;
     this.qset[0].questions.forEach(x => {
@@ -254,6 +260,10 @@ export class TestHomeComponent implements OnInit {
     console.log('mode', this.mode);
   }
 
+  isAnswered(question: Question) {
+    return question.options.find(x => x.isSelected) ? 'Answered' : 'Not Answered';
+  }
+
   isCorrect(question: Question) {
     return question.options.every(x => x.isSelected === x.isAnswer) ? 'correct' : 'wrong';
   }
@@ -270,8 +280,11 @@ export class TestHomeComponent implements OnInit {
     this.test = false;
     this.stoptest = true;
     this.mode = 'test';
+    // this.onSubmitTest();
   }
 
-  
-
+  // @HostListener('window:beforeunload', ['$event'])
+  // BeforeUnloadHandler(event) {
+  //   console.log('R u sure?');
+  // }
 }

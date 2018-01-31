@@ -60,6 +60,9 @@ export class QuestionsetComponent implements OnInit {
   };
 
   qValidationMessages = {
+    'no': {
+      'required': 'Kindly enter question number'
+    },
     'name': {
       'required': 'Kindly enter question name'
     },
@@ -146,6 +149,7 @@ export class QuestionsetComponent implements OnInit {
 
   createquestionForm() {
     this.questionForm = this.fb.group({
+      no: ['', Validators.required],
       name: ['', [Validators.required]],
       marks: ['', [Validators.required, Validators.maxLength(2)]]
     });

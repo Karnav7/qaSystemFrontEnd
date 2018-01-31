@@ -96,6 +96,14 @@
               <form novalidate [formGroup]="questionForm" (ngSubmit)="onQuestionSubmit()">
                 <div fxLayout="column">
                   <div fxFlex>
+                    <mat-input-container dividerColor="{{(qErrors.no) ? 'warn' : 'primary'}}">
+                      <input matInput type="number"  formControlName="no" placeholder="Enter question number" required>
+                      <mat-hint>
+                        <span [hidden]="!(qErrors.name)">{{qErrors.no}}</span>
+                      </mat-hint>
+                    </mat-input-container>
+                  </div>
+                  <div fxFlex>
                     <mat-input-container dividerColor="{{(qErrors.name) ? 'warn' : 'primary'}}">
                       <input matInput type="text"  formControlName="name" placeholder="Enter question name" required>
                       <mat-hint>

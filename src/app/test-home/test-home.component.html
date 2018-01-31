@@ -61,7 +61,7 @@
                 Start test
               </button>
               &nbsp;
-              <button mat-raised-button class="background-primary text-floral-white" (click)="onStop()" *ngIf="test === true">
+              <button mat-raised-button class="background-primary text-floral-white" [hidden]="isStopTestButtonHidden" (click)="onStop()" *ngIf="test === true">
                 Stop test
               </button>
             </div>
@@ -80,7 +80,7 @@
                   <h2>Questions</h2>
                 </mat-header-cell>
                 <mat-cell class="tablecell" *matCellDef="let questions; ">
-                  <h4>{{questions.name}}</h4> 
+                  <h4>{{questions.no}}. {{questions.name}}</h4> 
                   <!-- <mat-list style="margin-left: 30px"><ol>
                     <div *ngFor="let option of questions.options">
                       <mat-list-item>
@@ -104,11 +104,18 @@
             <mat-paginator [pageSizeOptions]="[1, 2, 5, 10]" [length]="length">
             </mat-paginator>
           </div>
+
+          <div fxFlex *ngIf="mode === 'review'">
+            <div fxLayout="column" *ngFor="let question of qset[0].questions; ">
+              <div class="{{ isAnswered(question) == 'Answered'? 'answered': 'not-answered' }}">{{question.no}}. {{ isAnswered(question) }}</div>
+            </div>
+          </div>
+
           <!-- After submiting test -->
           <div fxFlex *ngIf="mode === 'result'">
             <h2>Test Results</h2>
             <div fxLayout="column" *ngFor="let question of qset[0].questions; ">
-              <h4>{{question.name}}</h4>
+              <h4>{{question.no}}. {{question.name}}</h4>
               <mat-radio-group class="example-radio-group" [disabled]="disabled" >
                   <mat-radio-button class="example-radio-button" [checked]="option.isSelected" *ngFor="let option of question.options" [value]="option.name" (change)="onSelectionChange(question, option)">
                     {{option.name}}
@@ -143,7 +150,14 @@
             </mat-table> -->
            
           </div>
+          
           <div fxLayout="row">
+            <button mat-raised-button type="submit" class="background-primary text-floral-white" (click)="mode = 'test'" *ngIf="mode === 'review'">
+              Test
+            </button> &nbsp;
+            <button mat-raised-button type="submit" class="background-primary text-floral-white" (click)="mode = 'review'" *ngIf="mode === 'test'">
+              Review
+            </button> &nbsp;
             <button mat-raised-button type="submit" class="background-primary text-floral-white" (click)="onSubmitTest()" *ngIf="(test === true) && (mode === 'test')">
               Submit test
             </button>
@@ -157,3 +171,5 @@
     </mat-card>
   </div>
 </div>
+
+
