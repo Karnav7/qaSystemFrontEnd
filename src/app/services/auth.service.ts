@@ -1,27 +1,29 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Http, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 
 import { baseURL } from '../shared/baseurl';
 import { User } from '../shared/user';
+import { PassResetCode } from '../shared/passresetcode';
+import { Mail } from '../shared/mail';
 import { ProcesshttpmsgService } from './processhttpmsg.service';
 
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/catch';
 
 interface JWTResponse {
-  status: string,
-  success: string,
-  user: any
+  status: string;
+  success: string;
+  user: any;
 };
 
 interface AuthResponse {
-  status: string,
-  success: string,
-  token: string
+  status: string;
+  success: string;
+  token: string;
 };
 
 @Injectable()
@@ -215,5 +217,55 @@ export class AuthService {
     return token;
   }
 
+  findEmailId(emailid): Observable<User[]> {
+    console.log(emailid);
+    return this._http.get(baseURL + 'users?email_id=' + emailid)
+    .map(res => res.json())
+    .catch(error => {
+      return this.processHTTPMsgService.handleError(error);
+    });
+  }
+
+  genPassResetCode(gencode: PassResetCode): Observable<PassResetCode> {
+
+    return this._http.post(baseURL + 'resetpassword', gencode)
+    .map(res => res.json())
+    .catch(error => {
+      return this.processHTTPMsgService.handleError(error);
+    });
+  }
+
+  getVerificationCode(): Observable<PassResetCode> {
+    return this._http.get(baseURL + 'resetpassword')
+    .map(res => res.json())
+    .catch(error => {
+      return this.processHTTPMsgService.handleError(error);
+    });
+  }
+
+  deleteVerificationCode(): Observable<PassResetCode> {
+    return this._http.delete(baseURL + 'resetpassword')
+    .map(res => res.json())
+    .catch(error => {
+      return this.processHTTPMsgService.handleError(error);
+    });
+  }
+
+  sendMail(user: User, mail: Mail): Observable<Mail> {
+    let params = new HttpParams();
+    params.set('subject', mail.subject);
+    params.set('message', mail.message);
+
+    // console.log("problemservice user", user);
+    return this._http.post(baseURL + 'mail?subject=' + mail.subject + '&message=' + mail.message, user, {params: params})
+    .map(res => res.json())
+    .catch(error => {
+      return this.processHTTPMsgService.handleError(error);
+    });
+  }
+
+  isLoggedIn(): Boolean {
+    return this.isAuthenticated;
+  }
 
 }

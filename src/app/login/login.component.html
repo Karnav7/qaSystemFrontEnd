@@ -24,6 +24,7 @@
                   <input matInput type = "password" formControlName = "password" placeholder="Password" required>
                   <mat-hint>
                     <span [hidden]="!(formErrors.email)">{{formErrors.password}}</span>
+                    <span><a (click)="onClickForgotPass()"><strong>Forgot Password?</strong></a></span>
                   </mat-hint>
                 </mat-input-container>
               </p>

@@ -31,7 +31,7 @@ export class AdminDashboardComponent implements OnInit {
     'mobile_no': '',
     'email_id': '',
     'username': '',
-    'password': '',
+    // 'password': '',
     'location': '',
     'designation': '',
     'department': ''
@@ -58,11 +58,11 @@ export class AdminDashboardComponent implements OnInit {
       'minlength': 'Username must be atleast 2 characters.',
       'maxlength': 'Username must not exceed more than 20 characters.'
     },
-    'password': {
-      'required': 'Kindly enter Password.',
-      'minlength': 'Password must be atleast 3 characters.',
-      'maxlength': 'Password must not exceed more than 25 characters.'
-    },
+    // 'password': {
+    //   'required': 'Kindly enter Password.',
+    //   'minlength': 'Password must be atleast 3 characters.',
+    //   'maxlength': 'Password must not exceed more than 25 characters.'
+    // },
     'location': {
       'required': 'Kindly enter Location.'
     },
@@ -117,7 +117,7 @@ export class AdminDashboardComponent implements OnInit {
       firstname: ['', [Validators.required]],
       lastname: ['', [Validators.required]],
       username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(20)]],
-      password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
+      // password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(25)]],
       mobile_no: ['', [Validators.pattern, Validators.minLength(10), Validators.maxLength(10)]],
       email_id: [{value: '', disabled: false}, [Validators.email, Validators.required]],
       dob: [''],

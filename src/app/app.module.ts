@@ -28,13 +28,15 @@ import { AuthService } from './services/auth.service';
 import { ProcesshttpmsgService } from './services/processhttpmsg.service';
 import { QuestionsetService } from './services/questionset.service';
 import { TestService } from './services/test.service';
-import { ProfileService } from './services/profile.service'
+import { ProfileService } from './services/profile.service';
+import { AuthGuard } from './guards/auth.guard';
 
 import { RestangularModule, Restangular } from 'ngx-restangular';
 import { RestangularConfigFactory } from './shared/restConfig';
 import { TestHomeComponent } from './test-home/test-home.component';
 import { DialogReportCardComponent } from './test-home/dialog-report-card/dialog-report-card.component';
 import { EmployeeProfileComponent } from './employee-profile/employee-profile.component';
+import { PasswordResetComponent } from './password-reset/password-reset.component';
 
 
 @NgModule({
@@ -48,7 +50,8 @@ import { EmployeeProfileComponent } from './employee-profile/employee-profile.co
     AdminReviewComponent,
     TestHomeComponent,
     DialogReportCardComponent,
-    EmployeeProfileComponent
+    EmployeeProfileComponent,
+    PasswordResetComponent
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ import { EmployeeProfileComponent } from './employee-profile/employee-profile.co
   ],
   providers: [
     AuthService,
+    AuthGuard,
     ProcesshttpmsgService,
     QuestionsetService,
     TestService,

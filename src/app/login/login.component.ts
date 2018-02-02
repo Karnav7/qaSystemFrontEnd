@@ -126,6 +126,9 @@ export class LoginComponent implements OnInit {
         });
       });
   }
-  
+
+  onClickForgotPass() {
+    this.router.navigate(['/reset-password']);
+  }
 
 }
