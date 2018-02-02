@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
     this.authService.logIn(this.user)
       .subscribe(res => {
         if(res.success){
-          
+          this.authService.isAuthenticated = true;
           //this.authService.storeUserCredentials(res.token);     //Login problem not able to store tokens
           this.authService.storeUserData(res.token, res.user, res.user._id);
           console.log("Login success", res);
@@ -100,13 +100,14 @@ export class LoginComponent implements OnInit {
                 duration: 3000
               });
             });
-          } else {
-            this.router.navigate(['/userdashboard']).then(() => {
-              this.loginSnackBar.open("Successfully logged in!", "Ok", {
-                duration: 3000
-              });
-            });
           }
+          // else {
+          //   this.router.navigate(['/userdashboard']).then(() => {
+          //     this.loginSnackBar.open("Successfully logged in!", "Ok", {
+          //       duration: 3000
+          //     });
+          //   });
+          // }
           //this.router.navigate(['/problemregister']);
         } else {
           console.log(res);
